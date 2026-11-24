@@ -22,6 +22,16 @@ The server checks every point the same way it checks a click in the game's own s
 
 Chat shows what was sent, and a moment later what the server accepted. Anything you can't afford yet is held back, so run the command again after levelling to add the rest.
 
+## Exporting your gear
+
+The mod also writes down the Mine and Slash gear, jewels and gems you own, so you can hand the list to an AI and ask for build advice that uses what you already have.
+
+It writes two files to the `cte2gear/` folder, named after the server: a `.md` file grouped by slot for pasting into a chat, and a `.json` file with the same items.
+
+- What you're wearing (armor, weapons, Curios jewelry), your inventory, socketed jewels and gem slots are read every time the files are written.
+- On a server your client only sees what's in a container while it's open, so the mod records each chest, backpack, Master Bag tab or Refined Storage grid when you close it. Walk past your storage and open each one once. A Refined Storage grid records the whole network, whatever its search box shows.
+- Opening a container again replaces its record. `/cte2gear` rewrites the files now, and `/cte2gear clear` forgets every recorded container.
+
 ## Building
 
 ```sh

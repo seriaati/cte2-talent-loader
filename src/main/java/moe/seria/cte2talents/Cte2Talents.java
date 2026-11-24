@@ -1,6 +1,7 @@
 package moe.seria.cte2talents;
 
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -11,6 +12,9 @@ public class Cte2Talents {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             MinecraftForge.EVENT_BUS.addListener(BuildCommand::register);
             MinecraftForge.EVENT_BUS.addListener(BuildCommand::tick);
+            MinecraftForge.EVENT_BUS.addListener((RegisterClientCommandsEvent e) -> GearExport.register(e.getDispatcher()));
+            MinecraftForge.EVENT_BUS.addListener(GearExport::onClose);
+            MinecraftForge.EVENT_BUS.addListener(GearExport::tick);
         }
     }
 }
