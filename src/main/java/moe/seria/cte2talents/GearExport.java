@@ -144,7 +144,9 @@ final class GearExport {
             if (job.done.isEmpty()) byLocation.remove(where);
             else byLocation.put(where, job.done);
             write(player);
-            player.displayClientMessage(Component.literal("cte2gear: recorded " + job.done.size() + " items from " + where), true);
+            if (ClientConfig.SHOW_RECORDED_MESSAGE.get()) {
+                player.displayClientMessage(Component.literal("cte2gear: recorded " + job.done.size() + " items from " + where), true);
+            }
         }
     }
 

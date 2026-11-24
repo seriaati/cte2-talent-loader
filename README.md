@@ -36,6 +36,7 @@ It writes two files to the `cte2gear/` folder, named after the server: a `.md` f
 - On a server your client only sees what's in a container while it's open, so the mod records each chest, backpack, Master Bag tab or Refined Storage grid when you close it. Walk past your storage and open each one once. A Refined Storage grid records the whole network, whatever its search box shows.
 - `/cte2gear scan` does the walking for you within arm's reach: it opens every chest, barrel, ender chest, Sophisticated Storage block and Refined Storage grid you could click from where you stand, one at a time, and closes each once it's recorded. Run it with an empty main hand, since each container is clicked with that hand. Containers that are locked or claimed by someone else are skipped.
 - Opening a container again replaces its record. `/cte2gear` rewrites the files now, and `/cte2gear clear` forgets every recorded container.
+- Recording is silent. To see "recorded N items from …" above the hotbar each time, set `showRecordedMessage = true` in `config/cte2talents-client.toml`. The change applies without a restart.
 
 ## Building
 
