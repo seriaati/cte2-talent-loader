@@ -22,6 +22,10 @@ The server checks every point the same way it checks a click in the game's own s
 
 Chat shows what was sent, and a moment later what the server accepted. Anything you can't afford yet is held back, so run the command again after levelling to add the rest.
 
+## Exporting your build
+
+`/cte2build export [name]` writes your character to `cte2builds/` in the same format the editor exports, so you can import it at [cte2.seria.moe](https://cte2.seria.moe) under Builds. Without a name the file is named after you and the time. It holds your level, bonus points, tree nodes, attributes, classes, spells and passives, hotbar skills with their support gems, augments, socketed jewels, your codex, and the gear you're wearing with its rolls. The editor's calculator settings, like the enemy and which aura is on, start at its defaults.
+
 ## Exporting your gear
 
 The mod also writes down the Mine and Slash gear, jewels and gems you own, so you can hand the list to an AI and ask for build advice that uses what you already have.

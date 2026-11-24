@@ -45,7 +45,7 @@ import java.util.stream.Stream;
 
 final class BuildCommand {
     // The build file's tree names, and the game's.
-    private static final Map<String, String> TREES = new LinkedHashMap<>();
+    static final Map<String, String> TREES = new LinkedHashMap<>();
     static {
         TREES.put("talents", "talents");
         TREES.put("ascendancy", "ascendancy");
@@ -58,12 +58,16 @@ final class BuildCommand {
     private static int checkIn = -1;
     private static Runnable check;
 
-    private static Path folder() {
+    static Path folder() {
         return FMLPaths.GAMEDIR.get().resolve("cte2builds");
     }
 
     static void register(RegisterClientCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("cte2build")
+                .then(Commands.literal("export")
+                        .executes(ctx -> BuildExport.export(ctx.getSource(), null))
+                        .then(Commands.argument("name", StringArgumentType.greedyString())
+                                .executes(ctx -> BuildExport.export(ctx.getSource(), StringArgumentType.getString(ctx, "name")))))
                 .then(Commands.argument("file", StringArgumentType.greedyString())
                         .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(files(), builder))
                         .executes(ctx -> load(ctx.getSource(), StringArgumentType.getString(ctx, "file")))));
@@ -309,7 +313,7 @@ final class BuildCommand {
 
     // The tree's perks in the order cte2-db numbers them: row by row, each cell holding a perk id.
     // Grid columns and rows are what the game's PointData holds, as TalentGrid in Mine and Slash reads them.
-    private static List<PointData> nodes(TalentTree tree) {
+    static List<PointData> nodes(TalentTree tree) {
         List<PointData> nodes = new ArrayList<>();
         String[] rows = tree.perks.split("\n");
         for (int y = 0; y < rows.length; y++) {
