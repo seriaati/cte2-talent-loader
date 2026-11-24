@@ -15,6 +15,7 @@ public class Cte2Talents {
             MinecraftForge.EVENT_BUS.addListener((RegisterClientCommandsEvent e) -> GearExport.register(e.getDispatcher()));
             MinecraftForge.EVENT_BUS.addListener(GearExport::onClose);
             MinecraftForge.EVENT_BUS.addListener(GearExport::tick);
+            MinecraftForge.EVENT_BUS.addListener(GearScan::tick);
         }
     }
 }

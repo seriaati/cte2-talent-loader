@@ -99,7 +99,8 @@ final class GearExport {
     static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("cte2gear")
                 .executes(ctx -> export(ctx.getSource()))
-                .then(Commands.literal("clear").executes(ctx -> clear(ctx.getSource()))));
+                .then(Commands.literal("clear").executes(ctx -> clear(ctx.getSource())))
+                .then(Commands.literal("scan").executes(ctx -> GearScan.start(ctx.getSource()))));
     }
 
     static void onClose(ScreenEvent.Closing event) {
@@ -164,6 +165,9 @@ final class GearExport {
         return 1;
     }
 
+    // Set while /cte2gear scan has a container open, since the player isn't looking at it.
+    static BlockPos scanning;
+
     // Containers are told apart by the block they were opened from, so opening one again replaces
     // its record. Screens opened without a block, like a backpack, go by their title alone.
     private static String location(Minecraft mc, AbstractContainerScreen<?> screen) {
@@ -172,7 +176,7 @@ final class GearExport {
             return "master bag, " + ForgeRegistries.MENU_TYPES.getKey(screen.getMenu().getType()).getPath().replace("backpack_", "") + " tab";
         }
         String title = screen.getTitle().getString();
-        BlockPos pos = lookedAt(mc);
+        BlockPos pos = scanning != null ? scanning : lookedAt(mc);
         // Every ender chest opens the same inventory.
         if (pos == null || mc.level.getBlockState(pos).getBlock() instanceof EnderChestBlock) return title;
         pos = containerPos(mc.level, pos);
